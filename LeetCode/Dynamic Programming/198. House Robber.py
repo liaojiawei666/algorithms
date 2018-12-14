@@ -22,13 +22,20 @@ class Solution:
         :rtype: int
         """
         ln = len(nums)
+        if ln == 0:
+            return 0
         if ln <= 2:
             return max(nums)
         if ln == 3:
             return max(nums[0] + nums[2], nums[1])
 
-        max_nums0, max_nums1, max_nums2 = nums[0], nums[1], nums[2]
+        a0, a1, a2 = nums[0], nums[1], nums[2]+nums[0]
+        m = max(a2, a1)
         for i in range(3, ln):
-            max_nums0,max_nums1,max_nums2=max_nums1,max_nums2,
-        result = min(min_nums0, min_nums1)
-        return result
+            a3 = max(a0, a1) + nums[i]
+            a0, a1, a2 = a1, a2, a3
+            if m < a3:
+                m = a3
+        return m
+# x=Solution().rob([2,7,9,3,1])
+# print(x)
